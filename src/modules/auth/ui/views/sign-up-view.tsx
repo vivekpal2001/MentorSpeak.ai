@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { authClient } from "@/lib/auth-client"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { FaGithub, FaGoogle} from "react-icons/fa"
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -17,8 +18,8 @@ import { useForm } from "react-hook-form";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import {OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(1, {message: "Name is required" }),
@@ -53,7 +54,9 @@ export const SignUpView = () => {
             {
                 name: data.name,
                 email: data.email,
-                password: data.password
+                password: data.password,
+                callbackURL: "/"
+
             },
             {
                 onSuccess: () => {
@@ -63,6 +66,26 @@ export const SignUpView = () => {
                 onError: ({error}) => {
                     setError(error.message)
                     setPending(false);
+                },
+            }
+        );
+    }
+
+    const onSocial = (provider: "github" | "google") => {
+        setError(null);
+        setPending(true)
+
+        authClient.signIn.social(
+            {
+                provider: provider,
+                callbackURL: "/"
+            },
+            {
+                onSuccess: () => {
+                    setPending(false);
+                },
+                onError: ({error}) => {
+                    setError(error.message)
                 },
             }
         );
@@ -184,24 +207,20 @@ export const SignUpView = () => {
                                 <Button
                                     disabled={pending}
                                     variant="outline"
+                                    onClick={() => onSocial("github")}
                                     type="button"
                                     className="w-full"
                                 >
-                                    <div className="relative  flex items-center justify-center">
-                                        <img src="/github.png" alt="Google" className="h-[20px] w-[20px]" />
-                    
-                                    </div>
+                                    <FaGithub/>
                                 </Button>
                                 <Button
                                     disabled={pending}
                                     variant="outline"
+                                    onClick={() => onSocial("google")}
                                     type="button"
                                     className="w-full"
                                 >
-                                    <div className="relative  flex items-center justify-center">
-                                        <img src="/google.png" alt="Google" className="h-[20px] w-[20px]" />
-                    
-                                    </div>
+                                    <FaGoogle/>
                                 </Button>
                             </div>
                             <div className="flex flex-row justify-center text-center text-sm">
