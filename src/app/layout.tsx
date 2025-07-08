@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { TRPCReactProvider } from "@/trpc/client";
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <body
           className={`${inter.className} antialiased`}
         >
+          <Toaster/>
           {children}
         </body>
       </html>
