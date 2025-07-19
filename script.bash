@@ -15,7 +15,6 @@ read -r COMMIT_MESSAGE
 git commit -m "$COMMIT_MESSAGE"
 git checkout main
 git merge "$BRANCH_NAME"
-git branch -d "$BRANCH_NAME"
 
 # Added command to push the updated main branch to the remote named 'origin'
 git push origin main
