@@ -1,7 +1,6 @@
 import { useTRPC } from "@/trpc/client";
 import { MeetingGetOne } from "../../types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { meetingsInsertSchema } from "../../schemas";
 import z from "zod";
