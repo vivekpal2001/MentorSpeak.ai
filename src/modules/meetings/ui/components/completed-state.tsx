@@ -4,10 +4,12 @@ import { GeneratedAvatar } from "@/components/generated-avatar";
 import { MeetingGetOne } from "../../types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpenTextIcon, ClockFadingIcon, FileTextIcon, FileVideoIcon, Heading1, SparkleIcon, Video } from "lucide-react";
+import { BookOpenTextIcon, ClockFadingIcon, FileTextIcon, FileVideoIcon, Heading1, SparkleIcon} from "lucide-react";
 import { format } from "date-fns/format";
 import { Badge } from "@/components/ui/badge";
 import { formatDuration } from "@/lib/utils";
+import { Transcript } from "./transcript";
+import { ChatProvider } from "./chat-provider";
 
 
 interface Props{
@@ -70,6 +72,15 @@ export const CompletedState = ({ data }: Props) => {
                             controls
                         />
                     </div>
+                </TabsContent>
+                <TabsContent value="chat">
+                    <ChatProvider
+                        meetingId={data.id}
+                        meetingName={data.name}
+                    />
+                </TabsContent>
+                <TabsContent value="transcript">
+                    <Transcript meetingId={data.id}/>
                 </TabsContent>
                 <TabsContent value="summary">
                     <div className="bg-white rounded-lg border ">
@@ -138,7 +149,7 @@ export const CompletedState = ({ data }: Props) => {
                                         ),
                                     }}
                                 >
-                                    {removeTimestamps(data.summary)}
+                                    {removeTimestamps(data.summary!)}
                                 </Markdown>
                             </div>
                         </div>
