@@ -69,10 +69,16 @@ export const  premiumProcedure = (entity: "meetings" | "agents") => protectedPro
   const shouldThrowAgentError = 
     entity === "agents" && isFreeAgentLimitReached && !isPremium;
 
-  if(shouldThrowAgentError){
+  if(shouldThrowMeetingError){
     throw new TRPCError({
       code: "FORBIDDEN",
       message: "You have reached the maximum number of free meetings",
+    });
+  }
+  if(shouldThrowAgentError){
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "You have reached the maximum number of free agents",
     });
   }
 

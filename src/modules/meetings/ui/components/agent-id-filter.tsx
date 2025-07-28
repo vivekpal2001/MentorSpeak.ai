@@ -3,7 +3,7 @@ import { useMeetingsFilters } from "../../hooks/use-meetings-filters";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CommandSelect } from "@/components/command-select";
-import { Divide } from "lucide-react";
+
 import { GeneratedAvatar } from "@/components/generated-avatar";
 
 export const AgentIdFilter = () => {

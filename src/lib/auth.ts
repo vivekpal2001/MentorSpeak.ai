@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db"; 
 import * as schema from "@/db/schema"
-import { polar, checkout, portal, usage, webhooks } from "@polar-sh/better-auth"; 
+import { polar, checkout, portal,  } from "@polar-sh/better-auth"; 
 
 import { polarClient } from "./polar";
 
