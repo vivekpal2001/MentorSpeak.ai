@@ -14,6 +14,7 @@ import {
     SidebarMenuItem
 } from "@/components/ui/sidebar";
 import { DashboardUserButton } from "./dashboard-user-button";
+import { DashboardTrial } from "./dashboard-trial";
 import { BotIcon, StarIcon, VideoIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -110,6 +111,7 @@ export const DashboardSidebar = () => {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter className="">
+                <DashboardTrial />
                 <DashboardUserButton />
             </SidebarFooter>
         </Sidebar>
