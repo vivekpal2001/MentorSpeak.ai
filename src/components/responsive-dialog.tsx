@@ -13,9 +13,7 @@ import {
     DialogTitle,
     DialogDescription,
 
-} from "@/components/ui/dialog"
-import { title } from "process";
-import { Description } from "@radix-ui/react-dialog";
+} from "@/components/ui/dialog";
 
 interface ResponsiveDialogProps {
     title: string;

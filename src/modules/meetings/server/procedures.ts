@@ -261,7 +261,7 @@ export const meetingsRouter = createTRPCRouter({
             ...getTableColumns(meetings),
             agent: agents,
             duration: sql<number>`EXTRACT(EPOCH FROM(ended_at - started_at))`.as("duration"),
-            meetingCount: sql<number>`1`,
+            meetingCount:  db.$count(meetings),
         })
         .from(meetings)
         .innerJoin(agents, eq(meetings.agentId, agents.id))

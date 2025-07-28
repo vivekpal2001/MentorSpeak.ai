@@ -1,17 +1,22 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
+
 import { authClient } from "@/lib/auth-client"; 
-import { useRouter } from "next/navigation";
-import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
 
 
 export const HomeView = () => {
+  const { data } = authClient.useSession();
+
+
   return (
-    <div className="flex flex-col p-4 gap-y-4">
-        Home View
+    <div className="flex-1 space-y-6 p-6">
+      {/* Welcome Section */}
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold tracking-tight">Welcome back, {data?.user.name} !</h2>
+        <p className="text-muted-foreground">Here`&apos;`s what`&apos;`s happening with your AI meetings today.</p>
       </div>
-  );
+
+    
+    
+    </div>
+  )
 }

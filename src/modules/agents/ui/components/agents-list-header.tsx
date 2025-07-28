@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button"
 import { PlusIcon, XCircleIcon } from "lucide-react"
 import { NewAgentDialog } from "./new-agent-dialog"
 import { useState } from "react"
-import { userAgentsFilters } from "../../hooks/use-agents-filters"
+import { useAgentsFilters } from "../../hooks/use-agents-filters"
 import { AgentsSearchFilter } from "./agents-search-filter"
 import { DEFAULT_PAGE } from "@/constant"
 import { ScrollArea, Scrollbar } from "@radix-ui/react-scroll-area"
 
 export  const AgentsListHeader = () => {
-    const [filters, setFilters] = userAgentsFilters();
+    const [filters, setFilters] = useAgentsFilters();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const isAnyFilterModified = !!filters.search;
 

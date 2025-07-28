@@ -4,7 +4,7 @@ import { GeneratedAvatar } from "@/components/generated-avatar";
 import { MeetingGetOne } from "../../types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpenTextIcon, ClockFadingIcon, FileTextIcon, FileVideoIcon, Heading1, SparkleIcon} from "lucide-react";
+import { BookOpenTextIcon, ClockFadingIcon, FileTextIcon, FileVideoIcon, SparkleIcon} from "lucide-react";
 import { format } from "date-fns/format";
 import { Badge } from "@/components/ui/badge";
 import { formatDuration } from "@/lib/utils";

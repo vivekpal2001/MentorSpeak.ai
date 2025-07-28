@@ -11,9 +11,7 @@ import {
     ClockArrowUpIcon,
     ClockFadingIcon,
     CornerDownRightIcon,
-    Loader,
     LoaderIcon,
-    VideoIcon
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
