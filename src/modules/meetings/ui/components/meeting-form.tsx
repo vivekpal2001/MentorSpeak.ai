@@ -19,9 +19,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useState } from "react";
 import { CommandSelect } from "@/components/command-select";
-import { Divide } from "lucide-react";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { NewAgentDialog } from "@/modules/agents/ui/components/new-agent-dialog";
+import { useRouter } from "next/navigation";
 
 interface MeetingFormProps {
     onSuccess?: (id?: string) => void;
@@ -35,6 +35,7 @@ export const MeetingForm = ({
     initialValues,
 }: MeetingFormProps) => {
     const trpc = useTRPC();
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     const [agentSearch, setAgentSearch] = useState("");
@@ -50,15 +51,20 @@ export const MeetingForm = ({
     const createMeeting = useMutation(
         trpc.meetings.create.mutationOptions({
             onSuccess: async (data) => {
-                queryClient.invalidateQueries(
+                await queryClient.invalidateQueries(
                     trpc.meetings.getMany.queryOptions({}),
                 );
-                // todo: invalidate free tier user
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                );
+
                 onSuccess?.(data.id);
             },
             onError: (error) => {
                 toast.error(error.message);
-                // TODO : check if error code is "FORBIDDEN" redirect to /upgrade
+                if(error.data?.code === "FORBIDDEN") {
+                    router.push("/upgrade");
+                }
             },
         }),
     );
@@ -80,7 +86,6 @@ export const MeetingForm = ({
             },
             onError: (error) => {
                 toast.error(error.message);
-                // TODO : check if error code is "FORBIDDEN" redirect to /upgrade
             },
         }),
     );

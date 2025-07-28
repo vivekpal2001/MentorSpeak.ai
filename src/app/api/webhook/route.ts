@@ -16,7 +16,6 @@ import { agents, meetings } from "@/db/schema";
 import { streamVideo } from "@/lib/stream-video";
 import { inngest } from "@/inngest/client";
 import { generateAvatarUri  } from "@/lib/avatar";
-import { te } from "date-fns/locale";
 import { streamChat } from "@/lib/stream-chat";
 
 const openaiClient = new OpenAi({ apiKey: process.env.OPENAI_API_KEY})
@@ -179,7 +178,6 @@ export async function POST(req: NextRequest) {
             .where(and(eq(meetings.id, meetingId))); 
 
     } else if (eventType === "message.new"){
-        console.log("hello");
         const event = payload as MessageNewEvent;
         const channelId = event.channel_id;
         const userId = event.user?.id;

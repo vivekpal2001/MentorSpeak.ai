@@ -20,6 +20,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
+
 interface AgentFormProps {
     onSuccess?: () => void;
     onCancel?: () => void;
@@ -38,15 +39,20 @@ export const AgentForm = ({
     const createAgent = useMutation(
         trpc.agents.create.mutationOptions({
             onSuccess: async () => {
-                queryClient.invalidateQueries(
+                await queryClient.invalidateQueries(
                     trpc.agents.getMany.queryOptions({}),
                 );
-                // todo: invalidate free tier user
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                );
+
                 onSuccess?.();
             },
             onError: (error) => {
                 toast.error(error.message);
-                // TODO : check if error code is "FORBIDDEN" redirect to /upgrade
+                if(error.data?.code === "FORBIDDEN") {
+                    router.push("/upgrade");
+                }
             },
         }),
     );
@@ -68,7 +74,7 @@ export const AgentForm = ({
             },
             onError: (error) => {
                 toast.error(error.message);
-                // TODO : check if error code is "FORBIDDEN" redirect to /upgrade
+
             },
         }),
     );
