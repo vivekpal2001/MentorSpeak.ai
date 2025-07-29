@@ -69,6 +69,7 @@ export const StatusFilter = () => {
 
     return (
         <CommandSelect
+            onSearch={()=>{}}
             placeholder="Status"
             className="h-9"
             options={options}
