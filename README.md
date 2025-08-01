@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 Meet.ai  
 
-## Getting Started
+Meet.ai is a **SaaS platform** that lets users create their own **AI-powered agents**, host interactive **video meetings** with them, and access complete **summaries, transcripts, timestamps, recordings, and chat history**.  
 
-First, run the development server:
+Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, and Vercel**, Meet.ai provides a seamless way for individuals and teams to collaborate with AI in real-time.  
 
+---
+
+## ✨ Features
+
+### 🔹 AI Agent Creation
+- Create custom AI agents tailored to your needs by providing instructions and personality settings.  
+- Manage multiple agents for different purposes (e.g., teaching, support, brainstorming).  
+
+### 🔹 Interactive Meetings
+- Schedule and join **video meetings** with your AI agents.  
+- Real-time **chat** support.  
+
+### 🔹 Post-Meeting Insights
+- Automatic **summaries** of your meetings.  
+- Full **transcripts** with precise **timestamps**.  
+- Access **recorded videos** anytime.  
+
+### 🔹 SaaS Platform
+- Role-based authentication and subscription management with **BetterAuth** and **Polar**.  
+- Fully hosted and scalable with **Vercel**.  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** [Next.js](https://nextjs.org/) (React, App Router)  
+- **API:** [tRPC](https://trpc.io/)  
+- **Video & Chat:** [Stream.io](https://getstream.io/)  
+- **AI:** [OpenAI API](https://openai.com/) (for summaries, chat, and analysis)  
+- **Background Jobs:** [Inngest](https://www.inngest.com/)  
+- **Authentication:** [BetterAuth](https://betterauth.dev/)  
+- **Payments & SaaS Management:** [Polar](https://polar.sh/)  
+- **Hosting:** [Vercel](https://vercel.com/)  
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/yourusername/meet.ai.git
+cd meet.ai
