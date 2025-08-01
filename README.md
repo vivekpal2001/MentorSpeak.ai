@@ -1,8 +1,8 @@
 # 🤖 Meet.ai  
 
-Meet.ai is a **SaaS platform** that lets users create their own **AI-powered agents**, host interactive **video meetings** with them, and access complete **summaries, transcripts, timestamps, recordings, and chat history**.  
+Meet.ai is a **SaaS platform** that lets users create their own **AI-powered agents**, host interactive **video meetings**, and access complete **summaries, transcripts, timestamps, recordings, and chat history**.  
 
-Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, and Vercel**, Meet.ai provides a seamless way for individuals and teams to collaborate with AI in real-time.  
+Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, Drizzle ORM, Neon (Postgres), and Vercel**, Meet.ai provides a seamless way for individuals and teams to collaborate with AI in real-time.  
 
 ---
 
@@ -14,7 +14,7 @@ Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, and V
 
 ### 🔹 Interactive Meetings
 - Schedule and join **video meetings** with your AI agents.  
-- Real-time **chat** support.  
+- Real-time **chat**.   
 
 ### 🔹 Post-Meeting Insights
 - Automatic **summaries** of your meetings.  
@@ -31,6 +31,8 @@ Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, and V
 
 - **Frontend:** [Next.js](https://nextjs.org/) (React, App Router)  
 - **API:** [tRPC](https://trpc.io/)  
+- **Database:** [Neon](https://neon.tech/) (Serverless Postgres)  
+- **ORM:** [Drizzle ORM](https://orm.drizzle.team/) (for type-safe Postgres queries)  
 - **Video & Chat:** [Stream.io](https://getstream.io/)  
 - **AI:** [OpenAI API](https://openai.com/) (for summaries, chat, and analysis)  
 - **Background Jobs:** [Inngest](https://www.inngest.com/)  
