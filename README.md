@@ -46,5 +46,5 @@ Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, Drizz
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/meet.ai.git
+git clone https://github.com/vivekpal2001/meetai.git
 cd meet.ai
