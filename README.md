@@ -47,4 +47,4 @@ Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, Drizz
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/vivekpal2001/MentorSpeak.ai.git
-cd meet.ai
+cd MentorSpeak.ai
