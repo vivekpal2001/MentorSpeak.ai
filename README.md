@@ -1,8 +1,8 @@
-# 🤖 Meet.ai  
+# 🤖 MentorSpeak.ai  
 
-Meet.ai is a **SaaS platform** that lets users create their own **AI-powered agents**, host interactive **video meetings**, and access complete **summaries, transcripts, timestamps, recordings, and chat history**.  
+MentorSpeak.ai is a **SaaS platform** that lets users create their own **AI-powered agents**, host interactive **video meetings**, and access complete **summaries, transcripts, timestamps, recordings, and chat history**.  
 
-Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, Drizzle ORM, Neon (Postgres), and Vercel**, Meet.ai provides a seamless way for individuals and teams to collaborate with AI in real-time.  
+Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, Drizzle ORM, Neon (Postgres), and Vercel**, MentorSpeak.ai provides a seamless way for individuals and teams to collaborate with AI in real-time.  
 
 ---
 
@@ -46,5 +46,5 @@ Built with **Next.js, tRPC, Stream.io, OpenAI, Inngest, BetterAuth, Polar, Drizz
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/vivekpal2001/meetai.git
+git clone https://github.com/vivekpal2001/MentorSpeak.ai.git
 cd meet.ai
