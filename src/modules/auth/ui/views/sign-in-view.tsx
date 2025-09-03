@@ -186,7 +186,7 @@ export const SignInView = () => {
                 <div className="bg-radial from-sidebar-accent to to-sidebar relative  flex flex-col gap-y-4 items-center justify-center">
                     <img src="/logo.svg" alt="image" className="h-[92px] w-[92px]" />
                     <p className="text-2xl font-semibold text-white">
-                        meet.AI
+                            MentorSpeak.ai
                     </p>
                 </div>
 
