@@ -133,10 +133,11 @@ export async function POST(req: NextRequest) {
         await realtimeClient.connect();
         await realtimeClient.waitForSessionCreated();
 
-        // Force the agent to speak first
-        realtimeClient.sendUserMessageContent([
-            { type: "input_text", text: "Begin the interview now. Introduce yourself and start asking questions as per your role." }
-        ]);
+        // Disable VAD so the assistant can speak without waiting for user audio
+        sessionCfg.turn_detection = null;
+
+        // Trigger the assistant to generate its first response based on the instructions
+        realtimeClient.createResponse();
 
     } else if (eventType === "call.session_participant_left") {
         const event = payload as CallSessionParticipantLeftEvent;
