@@ -117,9 +117,11 @@ export async function POST(req: NextRequest) {
         // which sends whatever is in sessionConfig to OpenAI.
         // If we set instructions here, they will be included in the FIRST
         // session.update event, guaranteeing OpenAI receives them.
-        realtimeClient.sessionConfig.instructions = existingAgent.instructions;
-        realtimeClient.sessionConfig.voice = "alloy";
-        realtimeClient.sessionConfig.turn_detection = {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const sessionCfg = realtimeClient.sessionConfig as any;
+        sessionCfg.instructions = existingAgent.instructions;
+        sessionCfg.voice = "alloy";
+        sessionCfg.turn_detection = {
             type: "server_vad",
             threshold: 0.5,
             prefix_padding_ms: 300,
