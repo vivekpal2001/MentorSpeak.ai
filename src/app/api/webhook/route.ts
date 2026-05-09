@@ -103,17 +103,19 @@ export async function POST(req: NextRequest) {
             agentUserId: existingAgent.id,
         });
 
+        // Wait for the WebSocket session to be fully created before configuring
+        await realTimeClient.waitForSessionCreated();
+
         realTimeClient.updateSession({
             instructions: existingAgent.instructions,
+            voice: "alloy",
+            turn_detection: { type: "server_vad" },
         });
 
-        // Force the agent to start the conversation and act according to instructions
+        // Force the agent to start the conversation by injecting a hidden prompt
         realTimeClient.sendUserMessageContent([
-            { type: "input_text", text: "Hello! Please introduce yourself and start the interview according to your instructions." }
+            { type: "input_text", text: "The interview session has just started. Please begin the interview now by introducing yourself and following your instructions exactly." }
         ]);
-        
-        // Explicitly tell the AI to generate a voice response immediately
-        realTimeClient.createResponse();
 
         
 
