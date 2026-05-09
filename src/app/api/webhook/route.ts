@@ -107,6 +107,11 @@ export async function POST(req: NextRequest) {
             instructions: existingAgent.instructions,
         });
 
+        // Force the agent to start the conversation and act according to instructions
+        realTimeClient.sendUserMessageContent([
+            { type: "input_text", text: "Hello! Please introduce yourself and start the interview according to your instructions." }
+        ]);
+
         
 
     } else if (eventType === "call.session_participant_left") {
