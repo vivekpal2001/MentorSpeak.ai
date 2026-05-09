@@ -94,7 +94,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Agent not found" }, { status: 404 });
         }
 
-        const call = streamVideo.video.call("default", meetingId);
 
         // Generate a token for the AI agent to join the call
         const agentToken = streamVideo.generateCallToken({
