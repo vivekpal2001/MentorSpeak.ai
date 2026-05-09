@@ -94,33 +94,45 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Agent not found" }, { status: 404 });
         }
 
-        // Create the realtime client but DON'T connect yet
-        // We need to set instructions BEFORE connect() runs,
-        // because connect() internally calls updateSession() with whatever
-        // is in sessionConfig — if we set instructions after, they get ignored.
         const call = streamVideo.video.call("default", meetingId);
-        const realtimeClient = await streamVideo.video.connectOpenAi({
-            call,
-            openAiApiKey: process.env.OPENAI_API_KEY!,
-            agentUserId: existingAgent.id,
+
+        // Generate a token for the AI agent to join the call
+        const agentToken = streamVideo.generateCallToken({
+            user_id: existingAgent.id,
+            call_cids: [`default:${meetingId}`],
         });
 
-        // Wait for the session to be fully established
+        // Manually create the realtime client (instead of using connectOpenAi)
+        // so we can set instructions BEFORE the connection happens
+        const { createRealtimeClient } = await import("@stream-io/openai-realtime-api");
+        const realtimeClient = createRealtimeClient({
+            baseUrl: "https://video.stream-io-api.com",
+            call: { type: "default", id: meetingId },
+            streamApiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY!,
+            streamUserToken: agentToken,
+            openAiApiKey: process.env.OPENAI_API_KEY!,
+        });
+
+        // SET INSTRUCTIONS BEFORE CONNECTING
+        // This is critical: connect() internally calls updateSession()
+        // which sends whatever is in sessionConfig to OpenAI.
+        // If we set instructions here, they will be included in the FIRST
+        // session.update event, guaranteeing OpenAI receives them.
+        realtimeClient.sessionConfig.instructions = existingAgent.instructions;
+        realtimeClient.sessionConfig.voice = "alloy";
+        realtimeClient.sessionConfig.turn_detection = {
+            type: "server_vad",
+            threshold: 0.5,
+            prefix_padding_ms: 300,
+            silence_duration_ms: 200,
+        };
+
+        // NOW connect — the session.update sent during connect will
+        // already contain the HR interviewer instructions
+        await realtimeClient.connect();
         await realtimeClient.waitForSessionCreated();
 
-        // Now update the session with the agent's custom instructions
-        // This sends a session.update event over the WebSocket
-        realtimeClient.updateSession({
-            instructions: existingAgent.instructions,
-            voice: "alloy",
-            turn_detection: { type: "server_vad" },
-        });
-
-        // Small delay to ensure OpenAI processes the session.update
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Now inject a hidden user message and force a response
-        // so the agent speaks first, following its instructions
+        // Force the agent to speak first
         realtimeClient.sendUserMessageContent([
             { type: "input_text", text: "Begin the interview now. Introduce yourself and start asking questions as per your role." }
         ]);
