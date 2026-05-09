@@ -111,6 +111,9 @@ export async function POST(req: NextRequest) {
         realTimeClient.sendUserMessageContent([
             { type: "input_text", text: "Hello! Please introduce yourself and start the interview according to your instructions." }
         ]);
+        
+        // Explicitly tell the AI to generate a voice response immediately
+        realTimeClient.createResponse();
 
         
 
