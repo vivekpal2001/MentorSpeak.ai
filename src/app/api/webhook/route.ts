@@ -94,30 +94,36 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Agent not found" }, { status: 404 });
         }
 
+        // Create the realtime client but DON'T connect yet
+        // We need to set instructions BEFORE connect() runs,
+        // because connect() internally calls updateSession() with whatever
+        // is in sessionConfig — if we set instructions after, they get ignored.
         const call = streamVideo.video.call("default", meetingId);
-        
-
-        const realTimeClient = await streamVideo.video.connectOpenAi({
+        const realtimeClient = await streamVideo.video.connectOpenAi({
             call,
             openAiApiKey: process.env.OPENAI_API_KEY!,
             agentUserId: existingAgent.id,
         });
 
-        // Wait for the WebSocket session to be fully created before configuring
-        await realTimeClient.waitForSessionCreated();
+        // Wait for the session to be fully established
+        await realtimeClient.waitForSessionCreated();
 
-        realTimeClient.updateSession({
+        // Now update the session with the agent's custom instructions
+        // This sends a session.update event over the WebSocket
+        realtimeClient.updateSession({
             instructions: existingAgent.instructions,
             voice: "alloy",
             turn_detection: { type: "server_vad" },
         });
 
-        // Force the agent to start the conversation by injecting a hidden prompt
-        realTimeClient.sendUserMessageContent([
-            { type: "input_text", text: "The interview session has just started. Please begin the interview now by introducing yourself and following your instructions exactly." }
-        ]);
+        // Small delay to ensure OpenAI processes the session.update
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-        
+        // Now inject a hidden user message and force a response
+        // so the agent speaks first, following its instructions
+        realtimeClient.sendUserMessageContent([
+            { type: "input_text", text: "Begin the interview now. Introduce yourself and start asking questions as per your role." }
+        ]);
 
     } else if (eventType === "call.session_participant_left") {
         const event = payload as CallSessionParticipantLeftEvent;
