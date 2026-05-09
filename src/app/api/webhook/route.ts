@@ -133,11 +133,23 @@ export async function POST(req: NextRequest) {
         await realtimeClient.connect();
         await realtimeClient.waitForSessionCreated();
 
-        // Disable VAD so the assistant can speak without waiting for user audio
-        sessionCfg.turn_detection = null;
+        // Enable VAD so the assistant can hear the user
+        sessionCfg.turn_detection = {
+            type: "server_vad",
+            threshold: 0.5,
+            prefix_padding_ms: 300,
+            silence_duration_ms: 200,
+        };
 
         // Trigger the assistant to generate its first response based on the instructions
-        realtimeClient.createResponse();
+        // If session.update is being ignored by the proxy, injecting the instructions
+        // directly into the first hidden prompt guarantees the model sees them.
+        realtimeClient.sendUserMessageContent([
+            {
+                type: "input_text",
+                text: `[SYSTEM INSTRUCTION: You are ${existingAgent.name}. You must strictly follow these instructions: "${existingAgent.instructions}". Begin the conversation IMMEDIATELY by introducing yourself according to your instructions. Do not say "how can I help you". Speak first.]`
+            }
+        ]);
 
     } else if (eventType === "call.session_participant_left") {
         const event = payload as CallSessionParticipantLeftEvent;
