@@ -1,3 +1,6 @@
+// Force ws to use pure JS fallback — native bufferutil crashes on Vercel serverless
+process.env.WS_NO_BUFFER_UTIL = '1';
+
 import OpenAi from "openai";
 import { and, eq, not } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
