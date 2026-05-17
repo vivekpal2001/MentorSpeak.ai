@@ -108,6 +108,7 @@ export async function POST(req: NextRequest) {
             call,
             openAiApiKey: process.env.OPENAI_API_KEY!,
             agentUserId: existingAgent.id,
+            model: "gpt-4o-realtime-preview",
         });
 
         console.log("[WEBHOOK] OpenAI connected, waiting for session...");
